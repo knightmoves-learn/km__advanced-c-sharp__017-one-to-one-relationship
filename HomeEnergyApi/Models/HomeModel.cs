@@ -20,5 +20,7 @@ namespace HomeEnergyApi.Models
             StreetAddress = streetAddress;
             City = city;
         }
+
+        public HomeUsageData? HomeUsageData { get; set; }
     }
 }
