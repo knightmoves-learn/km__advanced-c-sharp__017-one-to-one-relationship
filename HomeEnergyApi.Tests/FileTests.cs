@@ -74,20 +74,4 @@ public class FileTests
         Assert.True(containsHttpClient,
             "HomeEnergyApi/Program.cs does not call Database.Migrate()");
     }
-
-    [Fact]
-    public void WasMigrationsDirectoryCreated()
-    {
-        string migrationsPath = @"../../../../HomeEnergyApi/Migrations";
-        Assert.True(Directory.Exists(migrationsPath),
-            "HomeEnergyApi/Migrations does not exist.");
-    }
-
-    [Fact]
-    public void WasHomesDbCreated()
-    {
-        string homesPath = @"../../../../HomeEnergyApi/Homes.db";
-        Assert.True(File.Exists(homesPath),
-            "HomeEnergyApi/Homes.db does not exist.");
-    }
 }

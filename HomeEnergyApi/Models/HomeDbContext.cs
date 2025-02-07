@@ -7,5 +7,6 @@ namespace HomeEnergyApi.Models
         public HomeDbContext(DbContextOptions<HomeDbContext> options) : base(options) { }
 
         public DbSet<Home> Homes { get; set; }
+        public DbSet<HomeUsageData> HomeUsageDatas { get; set; }
     }
 }

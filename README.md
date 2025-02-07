@@ -1,48 +1,40 @@
-# 015 Task Based Async Pattern
+# 017 Task Based Async Pattern
 
 ## Lecture
 
-[![# Entity Framework(Part 1)](https://img.youtube.com/vi/xXRktgfaiJA/0.jpg)](https://www.youtube.com/watch?v=xXRktgfaiJA)
-
-[![# Entity Framework(Part 2)](https://img.youtube.com/vi/iYHDXCxVigo/0.jpg)](https://www.youtube.com/watch?v=iYHDXCxVigo)
+[![# One To One Relationship](https://img.youtube.com/vi/hNoaqRD51Mo/0.jpg)](https://www.youtube.com/watch?v=hNoaqRD51Mo)
 
 ## Instructions
 
-In `HomeEnergyApi/Models/HomeDbContext.cs`
-- Create a public class `HomeDbContext` extending `DbContext`
-    - Create a constructor
-        - Should take one argument `options` of type `DbContextOptions<HomeDbContext>`
-        - Should extend it's single argument to it's parent's constructor, using the `base()` keyword.
-    - Create a public property `Homes` of type `DbSet<Home>`
-        - Ensure this property has a getter/setter
+In `HomeEnergyApi/Models/HomeUsageData.cs`
+- Create a public class `HomeUsageData`
+    - Give `HomeUsageData` the following public properties / types
+        - Id / int
+        - Monthly Electric Usage / int
+        - HasSolar / bool
+        - HomeId / int
+        - Home / Home?
+            - Add the `JsonIgnore` attribute to Home.
+            - Add `= null!` to make Home non-nullable. (see 'null-forgiving' link in Resources)
+    - Ensure all properties have getters/setters
 
-In `HomeEnergyApi/Models/Home.cs`
-- Create a private property on `Id` of type `int`
-    - Give this property the `Key` attribute
+In `HomeEnergyApi/Models/HomeModel.cs`
+- On `Home` create a public property `HomeUsageData` of type `HomeUsageData?`
     - Ensure this property has getter/setter
 
-In `HomeEnergyApi/Models/HomeRepository.cs`
-- Replace `HomesList` with a new private property `context` of type `HomeDbContext`
-- With the above change, refactor each method on `HomeRepository` as necessary to ensure they operate the same as before
-- Ensure you are calling `context.SaveChanges()` as needed.
+In `HomeEnergyApi/Models/HomeDbContext.cs`
+- On `HomeDbContext` create a public property `HomeUsageDatas` of type `DbSet<HomeUsageData>`
 
-In `HomeEnergyApi/Program.cs`
-- Refactor each instance of `AddSingleton` to be `AddScoped`
-- To the builder, add a DbContext Service with the type `HomeDbContext` supplied
-    - Give this service the option of `UseSqlite("Data Source=Homes.db")` 
-- Use the following code, to add migration to your api, by adding the following code snippet after `builder.Build()`
-``` cs
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<HomeDbContext>();
-    db.Database.Migrate();
-}
-```
+In `HomeEnergyApi/Models/HomeRepository.cs`
+- Modify `HomeRepository.Save()` so that...
+    - If `home.HomeUsageData` is null,
+    - A `HomeUsageData` is added to `context.HomeUsageDatas`,
+    - With it's `Home` property set to `home`
 
 In your terminal
-- Install the tool `dotnet-ef` to dotnet globally
-    - The --global flag means you will have `dotnet-ef` available to use anywhere on your current machine. If you are using GitHub Codespaces, you will need to run this command each time you create a new codespace.
-- Run `dotnet ef migrations add InitialCreate`
+- ONLY IF you are working on codespaces or a different computer/environment as the previous lesson and don't have `dotnet-ef` installed globally, run `dotnet tool install --global dotnet-ef`, otherwise skip this step
+    - To check if you have `dotnet-ef` installed, run `dotnet-ef --version`
+- Run `dotnet ef migrations add AddHomeUsageDataTable`
 - Run `dotnet ef database update`
     
 ## Additional Information
@@ -54,15 +46,12 @@ In your terminal
 - Compare and contrast fundamental data structures and their uses (3B-AP-12) https://www.csteachers.org/page/standards
 - Construct solutions to problems using student-created components, such as procedures, modules and/or objects (3B-AP-14) https://www.csteachers.org/page/standards
 - Demonstrate code reuse by creating programming solutions using libraries and APIs (3B-AP-16) https://www.csteachers.org/page/standards
-- Develop and use a series of test cases to verify that a program performs according to its design specifications (3B-AP-21) https://www.csteachers.org/page/standards
 - Modify an existing program to add additional functionality and discuss intended and unintended implications (e.g., breaking other functionality) (3B-AP-22) https://www.csteachers.org/page/standards
 
 ## Resources
-- https://learn.microsoft.com/en-us/ef/
-- https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping
-- https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-add-package
-- https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install
-- https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#create-your-first-migration
-- https://learn.microsoft.com/en-us/ef/core/cli/dotnet#dotnet-ef-database-update
+- https://learn.microsoft.com/en-us/ef/core/modeling/relationships/one-to-one
+- https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/ignore-properties
+- https://en.wikipedia.org/wiki/Serialization
+- https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving
 
 Copyright &copy; 2025 Knight Moves. All Rights Reserved.

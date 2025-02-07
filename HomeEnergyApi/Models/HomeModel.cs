@@ -14,15 +14,13 @@ namespace HomeEnergyApi.Models
 
         public string? City { get; set; }
 
-        [Range(0, 50000, ErrorMessage = "Monthly electric usage is limited to positive numbers of 50,000 kWh or less")]
-        public int? MonthlyElectricUsage { get; set; }
+        public HomeUsageData? HomeUsageData { get; set; }
 
-        public Home(string ownerLastName, string? streetAddress, string? city, int? monthlyElectricUsage)
+        public Home(string ownerLastName, string? streetAddress, string? city)
         {
             OwnerLastName = ownerLastName;
             StreetAddress = streetAddress;
             City = city;
-            MonthlyElectricUsage = monthlyElectricUsage;
         }
     }
 }

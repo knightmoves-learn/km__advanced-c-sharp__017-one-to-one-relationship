@@ -1,19 +1,20 @@
 using HomeEnergyApi.Models;
 using System.Data.Common;
+using System.Dynamic;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 [TestCaseOrderer("HomeEnergyApi.Tests.Extensions.PriorityOrderer", "HomeEnergyApi.Tests")]
 public class HomeRepositoryTests
 {
-    private Home testHomeToSave = new Home("Savey", "789 Save Ave.", "Savetown", 789);
-    private Home testHomeToUpdate = new Home("Updater", "333 Update Ave.", "Updateeee", 333);
+    private Home testHomeToSave = new Home("Savey", "789 Save Ave.", "Savetown");
+    private Home testHomeToUpdate = new Home("Updater", "333 Update Ave.", "Updateeee");
 
 
     private List<Home> testHomes = new List<Home>()
         {
-            new Home("Testy", "456 Assert St.", "Unitville", 456),
-            new Home("Test", "123 Test St.", "Test City", 123)
+            new Home("Testy", "456 Assert St.", "Unitville"),
+            new Home("Test", "123 Test St.", "Test City")
         };
 
     private readonly DbConnection _connection;
