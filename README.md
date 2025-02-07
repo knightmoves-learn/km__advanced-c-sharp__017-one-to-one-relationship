@@ -30,6 +30,8 @@ In `HomeEnergyApi/Models/HomeRepository.cs`
     - If `home.HomeUsageData` is null,
     - A `HomeUsageData` is added to `context.HomeUsageDatas`,
     - With it's `Home` property set to `home`
+- Modify `HomeRepository.FindAll() so that...
+    - Entities existing in `HomeUsageDatas` are returned along with those existing in `Homes`
 
 In your terminal
 - ONLY IF you are working on codespaces or a different computer/environment as the previous lesson and don't have `dotnet-ef` installed globally, run `dotnet tool install --global dotnet-ef`, otherwise skip this step

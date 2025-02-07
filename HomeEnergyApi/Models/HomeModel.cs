@@ -14,8 +14,6 @@ namespace HomeEnergyApi.Models
 
         public string? City { get; set; }
 
-        public HomeUsageData? HomeUsageData { get; set; }
-
         public Home(string ownerLastName, string? streetAddress, string? city)
         {
             OwnerLastName = ownerLastName;

@@ -25,6 +25,9 @@ namespace HomeEnergyApi.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("MonthlyElectricUsage")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("OwnerLastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -36,45 +39,6 @@ namespace HomeEnergyApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Homes");
-                });
-
-            modelBuilder.Entity("HomeEnergyApi.Models.HomeUsageData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("HasSolar")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("HomeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MonthlyElectricUsage")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HomeId")
-                        .IsUnique();
-
-                    b.ToTable("HomeUsageDatas");
-                });
-
-            modelBuilder.Entity("HomeEnergyApi.Models.HomeUsageData", b =>
-                {
-                    b.HasOne("HomeEnergyApi.Models.Home", "Home")
-                        .WithOne("HomeUsageData")
-                        .HasForeignKey("HomeEnergyApi.Models.HomeUsageData", "HomeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Home");
-                });
-
-            modelBuilder.Entity("HomeEnergyApi.Models.Home", b =>
-                {
-                    b.Navigation("HomeUsageData");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,13 +13,6 @@ namespace HomeEnergyApi.Models
 
         public Home Save(Home home)
         {
-            if(home.HomeUsageData != null)
-            {
-                var usageData = home.HomeUsageData;
-                usageData.Home = home;
-                context.HomeUsageDatas.Add(usageData);
-            }
-            
             context.Homes.Add(home);
             context.SaveChanges();
             return home;
@@ -35,9 +28,7 @@ namespace HomeEnergyApi.Models
 
         public List<Home> FindAll()
         {
-            return context.Homes
-            .Include(h => h.HomeUsageData)
-            .ToList();
+            return context.Homes.ToList();
         }
 
         public Home FindById(int id)
