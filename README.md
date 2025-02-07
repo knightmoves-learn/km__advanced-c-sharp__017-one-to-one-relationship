@@ -30,7 +30,7 @@ In `HomeEnergyApi/Models/HomeRepository.cs`
     - If `home.HomeUsageData` is null,
     - A `HomeUsageData` is added to `context.HomeUsageDatas`,
     - With it's `Home` property set to `home`
-- Modify `HomeRepository.FindAll() so that...
+- Modify `HomeRepository.FindAll()` so that...
     - Entities existing in `HomeUsageDatas` are returned along with those existing in `Homes`
 
 In your terminal
