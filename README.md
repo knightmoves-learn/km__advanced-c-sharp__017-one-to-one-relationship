@@ -27,7 +27,7 @@ In `HomeEnergyApi/Models/HomeDbContext.cs`
 
 In `HomeEnergyApi/Models/HomeRepository.cs`
 - Modify `HomeRepository.Save()` so that...
-    - If `home.HomeUsageData` is null,
+    - If `home.HomeUsageData` is not null,
     - A `HomeUsageData` is added to `context.HomeUsageDatas`,
     - With it's `Home` property set to `home`
 - Modify `HomeRepository.FindAll()` so that...
